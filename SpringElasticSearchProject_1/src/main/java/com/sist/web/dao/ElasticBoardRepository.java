@@ -7,7 +7,7 @@ import com.sist.web.vo.ElasticBoard;
 
 @Repository
 public interface ElasticBoardRepository extends ElasticsearchRepository<ElasticBoard, Integer>{
-   // public ElasticBoard findById(int id);
+   public ElasticBoard findById(int id);
    // CRUD설정 
    
 }
