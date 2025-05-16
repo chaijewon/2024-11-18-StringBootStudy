@@ -8,6 +8,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 /*
@@ -101,7 +102,30 @@ public class EBusanFoodController {
 	  
 	   
    }
+   @RequestMapping("/busan/find")
+   public String busan_find(@RequestParam(name="type",required = false) String type,Model model)
+   {
+	   if(type==null)
+		   type="한식";
+	   List<EBusanFood> list=eDao.findByTypeContaining(type);
+		/*
+		 * for(EBusanFood eb:list) { String s=eb.getPoster();
+		 * s="https://www.menupan.com"+s; eb.setPoster(s); }
+		 */
+	   model.addAttribute("list", list);
+	   return "busan/find";
+   }
    
+   @GetMapping("/busan/detail")
+   public String busan_detail(@RequestParam("id") String id,Model model)
+   {
+	   System.out.println("id:"+id);
+	   EBusanFood vo=eDao.findById(id);
+	   //vo.setPoster("https://www.menupan.com"+vo.getPoster());
+	   //System.out.println("poster:"+vo.getPoster());
+	   model.addAttribute("vo", vo);
+	   return "busan/detail";
+   }
 }
 
 

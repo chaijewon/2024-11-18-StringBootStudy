@@ -23,14 +23,15 @@ import java.util.*;
  *     findByPriceLessThenOrderByPriceDESC()  
  *     WHERE Order BY a DESC 
  *     
- *    
+ *    @Query({hits:hits:{_source:{type:'*0?*'}})
+ *      1? 2? 3?
  *    
  */
 public interface EBusanFoodRepository extends ElasticsearchRepository<EBusanFood, Integer>{
    public List<EBusanFood> findByTypeContaining(String type);
    // 메소드화 => 조건이 있는 경우 / Order By , Group by ....
    // JOIN => 메소드(X)
-   public EBusanFood findById(int id); // findByName(String name) name=?
+   public EBusanFood findById(String id); // findByName(String name) name=?
    // WHERE id=?
 }
 
