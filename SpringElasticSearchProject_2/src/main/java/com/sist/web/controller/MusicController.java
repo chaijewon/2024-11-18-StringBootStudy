@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.*;
 import com.sist.web.sevice.*;
@@ -21,6 +22,7 @@ public class MusicController {
    *   ---------------------
    *   매개변수 : 일반 데이터 / 클래스 (VO) => 내장 객체 => Model (전송) 
    */
+  /*
   @GetMapping("/music/data")
   public String music_data(Model model)
   {
@@ -74,6 +76,23 @@ public class MusicController {
 	  model.addAttribute("msg", "저장완료!!");
 	  return "music/data";
   }
+  */
+  @GetMapping("/music/list")
+  public String music_list(@RequestParam(name="page",required = false) String page,Model model)
+  {
+	  if(page==null)
+		  page="1";
+	  int curpage=Integer.parseInt(page);
+	  List<Music> list=mService.getAllMusics(curpage);
+	  int totalpage=mService.getTotalPage();
+	  
+	  model.addAttribute("list", list);
+	  model.addAttribute("curpage", curpage);
+	  model.addAttribute("totalpage", totalpage);
+	  
+	  return "music/list";
+  }
+  
 }
 
 
