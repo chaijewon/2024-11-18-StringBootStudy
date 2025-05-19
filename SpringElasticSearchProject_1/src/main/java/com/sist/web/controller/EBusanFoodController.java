@@ -107,7 +107,7 @@ public class EBusanFoodController {
    {
 	   if(type==null)
 		   type="한식";
-	   List<EBusanFood> list=eDao.findByTypeContaining(type);
+	   List<EBusanFood> list=/*eDao.findByTypeContaining(type);*/eDao.foodListData(type);//
 		/*
 		 * for(EBusanFood eb:list) { String s=eb.getPoster();
 		 * s="https://www.menupan.com"+s; eb.setPoster(s); }
