@@ -4,6 +4,7 @@ import org.springframework.data.elasticsearch.annotations.Query;
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
 import org.springframework.stereotype.Repository;
 import com.sist.web.vo.*;
+import java.util.*;
 // 빅데이터 => 빠른 검색 (검색 엔진) => SM/SI (웹) 
 /*
  *   데이터베이스 ElasticSearch 
@@ -18,4 +19,5 @@ import com.sist.web.vo.*;
 @Repository
 public interface MusicRepository extends ElasticsearchRepository<Music, String>{
    // @Query("{\"query\":{\"match\":{\"title\":\"?0\"}}}")
+	public List<Music> findByTitleContaining(String title);
 }

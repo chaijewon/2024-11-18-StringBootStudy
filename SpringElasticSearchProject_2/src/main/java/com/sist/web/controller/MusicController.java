@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.net.URLEncoder;
 import java.util.*;
 import com.sist.web.sevice.*;
 import com.sist.web.vo.*;
@@ -92,7 +93,19 @@ public class MusicController {
 	  
 	  return "music/list";
   }
-  
+  @GetMapping("/music/find")
+  public String music_find(@RequestParam(name="title",required = false) String title)
+  {
+	  try
+	  {
+	  if(title==null)
+		  title="사랑";
+	  List<Music> list=mService.search(title);
+	  System.out.println("title:"+title);
+	  System.out.println("size:"+list.size());
+	  }catch(Exception e) {}
+	  return "music/find";
+  }
 }
 
 
