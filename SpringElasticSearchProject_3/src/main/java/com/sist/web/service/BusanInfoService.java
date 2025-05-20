@@ -8,6 +8,12 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import com.sist.web.dao.*;
 import com.sist.web.entity.*;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.util.*;
 /*
  *     Repository : DAO  => 순수하게 데이터베이스 연동 
@@ -65,5 +71,35 @@ public class BusanInfoService {
 	   data[3]=endPage;
 	   
 	   return data;
+   }
+   
+   public List<BusanInfoEntity> busanInfoFindData(String title)
+   {
+	   List<BusanInfoEntity> list=new ArrayList<BusanInfoEntity>();
+	   try
+	   {
+		   String strUrl="http://localhost:9200/busaninfo/_search?q=title="
+				     +URLEncoder.encode(title, "UTF-8");
+		   URL url=new URL(strUrl);
+		   HttpURLConnection conn=(HttpURLConnection)url.openConnection();
+		   StringBuffer sb=new StringBuffer();
+		   if(conn!=null)
+		   {
+			   BufferedReader in=
+					   new BufferedReader(new InputStreamReader(conn.getInputStream(),"UTF-8"));
+			   while(true)
+			   {
+				   String data=in.readLine();
+				   if(data==null) break;
+				   sb.append(data);
+			   }
+			   in.close();
+			   
+			   System.out.println(sb.toString());
+		   }
+		   
+	   }catch(Exception ex) {}
+	   
+	   return list;
    }
 }

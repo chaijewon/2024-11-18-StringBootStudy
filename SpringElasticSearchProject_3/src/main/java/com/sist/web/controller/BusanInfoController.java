@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sist.web.service.*;
@@ -15,7 +16,7 @@ public class BusanInfoController {
    private BusanInfoService bService;
    
    @GetMapping("/info/list")
-   public String food_list(@RequestParam(name="page",required = false) String page,Model model)
+   public String info_list(@RequestParam(name="page",required = false) String page,Model model)
    {
 	   if(page==null)
 		   page="1";
@@ -28,6 +29,16 @@ public class BusanInfoController {
 	   model.addAttribute("startPage", data[2]);
 	   model.addAttribute("endPage", data[3]);
 	   model.addAttribute("main_html", "info/list");
+	   return "main";
+   }
+   @RequestMapping("/info/find")
+   public String info_find(@RequestParam(name="title",required = false) String title,Model model)
+   {
+	   if(title==null)
+		   title="부산";
+	   List<BusanInfoEntity> list=bService.busanInfoFindData(title);
+	   
+	   model.addAttribute("main_html", "info/find");
 	   return "main";
    }
 }

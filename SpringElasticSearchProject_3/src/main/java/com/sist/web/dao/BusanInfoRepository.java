@@ -13,4 +13,10 @@ public interface BusanInfoRepository extends ElasticsearchRepository<BusanInfoEn
    // WHERE (조건문) findDistinctByAge... => 메소드 패턴  lessthen < greaterthen > 
    // <= : lessthenEqual  >= greaterthenEqual
    public List<BusanInfoEntity> findByCno(@Param("cno") Integer cno);
+   public List<BusanInfoEntity> findByTitleContaining(@Param("title") String title);
+   /*
+    *    A%    findByTitleStartsWith
+    *    %A%   findByTitleContaining
+    *    %A    findByTitleEndsWith
+    */
 }
