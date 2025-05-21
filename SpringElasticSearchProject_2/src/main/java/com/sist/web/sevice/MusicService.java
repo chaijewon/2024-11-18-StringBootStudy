@@ -66,7 +66,7 @@ public class MusicService {
    }
    public List<Music> getMusicFind(String title)
    {
-	   return mRepository.findByTitleContaining(title);
+	   return mRepository.musicFindData(title);
    }
    public List<Music> search(String title)
    {

@@ -41,4 +41,6 @@ public class BusanInfoController {
 	   model.addAttribute("main_html", "info/find");
 	   return "main";
    }
+  
+   
 }

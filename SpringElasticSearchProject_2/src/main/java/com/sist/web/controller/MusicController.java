@@ -98,12 +98,16 @@ public class MusicController {
   {
 	  try
 	  {
-	  if(title==null)
+	     if(title==null)
 		  title="사랑";
-	  List<Music> list=mService.search(title);
-	  System.out.println("title:"+title);
-	  System.out.println("size:"+list.size());
-	  }catch(Exception e) {}
+	  
+	      List<Music> list=mService.getMusicFind(title);
+	      System.out.println("찾은 갯수:"+list.size());
+	      for(Music m:list)
+	      {
+	    	  System.out.println(m.getTitle());
+	      }
+	  }catch(Exception e) {e.printStackTrace();}
 	  return "music/find";
   }
 }
