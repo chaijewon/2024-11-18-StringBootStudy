@@ -22,8 +22,8 @@ public class FoodController {
 		  page="1";
 	  int curpage=Integer.parseInt(page);
 	  Map map=new HashMap();
-	  map.put("start", (curpage*10)-9);
-	  map.put("end", curpage*10);
+	  map.put("start", (curpage*12)-11);
+	  map.put("end", curpage*12);
 	  List<FoodVO> list=fService.foodListData(map);
 	  int totalpage=fService.foodTotalPage();
 	  model.addAttribute("list", list);
