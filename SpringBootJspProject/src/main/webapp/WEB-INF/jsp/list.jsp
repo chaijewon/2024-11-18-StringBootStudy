@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="jakarta.tags.core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -33,7 +33,7 @@ p{
 	      <a href="/detail?fno=${vo.fno}">
 	        <img src="https://www.menupan.com${vo.poster}" style="width:230px;height: 120px">
 	        <div class="caption">
-	          <p>${vo.title}</p>
+	          <p>${vo.name}</p>
 	        </div>
 	      </a>
 	    </div>
