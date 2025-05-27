@@ -19,5 +19,5 @@ public class BusanInfoEntity {
    @Id
    private int no;
    private int cno;
-   private String title,address,phone,info;
+   private String title,address,phone,info,poster;
 }

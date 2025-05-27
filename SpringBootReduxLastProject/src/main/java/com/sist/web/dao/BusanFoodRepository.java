@@ -20,8 +20,8 @@ import java.util.*;
  */
 @Repository
 public interface BusanFoodRepository extends JpaRepository<BusanFoodEntity, Integer>{
-    @Query("SELECT no,poster,name,hit,jjimcount,likecount,score,type "
-    	  +"FROM busan_food ORDER BY no ASC "
-    	  +"LIMIT 0,9")
+    @Query(value="SELECT fno,poster,name,hit,jjimcount,likecount,score,type,theme,content "
+    	  +"FROM busan_food ORDER BY fno ASC "
+    	  +"LIMIT 0,9",nativeQuery = true)
     public List<BusanFoodVO> busanMainData();
 }
