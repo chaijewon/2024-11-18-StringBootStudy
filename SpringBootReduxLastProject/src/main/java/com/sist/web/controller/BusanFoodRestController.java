@@ -3,6 +3,7 @@ package com.sist.web.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.*;
 import com.sist.web.service.*;
@@ -38,6 +39,33 @@ public class BusanFoodRestController {
 	   map.put("lList", lList);
 	   map.put("iList", iList);
 	   
+	   return map;
+   }
+   @GetMapping("/food/list_react")
+   public Map food_list(@RequestParam("page") int page)
+   {
+	   Map map=new HashMap();
+	   int rowSize=12;
+	   int start=(page-1)*rowSize;
+	   List<BusanFoodVO> list=bService.busanListData(start);
+	   int totalpage=bService.busanFoodTotalPage();
+	   final int BLOCK=10;
+	   int startPage=((page-1)/BLOCK*BLOCK)+1;
+	   int endPage=((page-1)/BLOCK*BLOCK)+BLOCK;
+	   if(endPage>totalpage)
+		   endPage=totalpage;
+	   /*
+	    *   {
+	    *     curpage:,
+	    *     to...
+	    *   }
+	    */
+	   
+	   map.put("curpage", page);
+	   map.put("totalpage", totalpage);
+	   map.put("startPage", startPage);
+	   map.put("endPage", endPage);
+	   map.put("list", list);
 	   return map;
    }
 }

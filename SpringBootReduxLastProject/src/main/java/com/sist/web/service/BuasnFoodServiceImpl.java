@@ -9,7 +9,7 @@ import com.sist.web.dao.BusanFoodRepository;
 import com.sist.web.dao.BusanInfoRepository;
 import com.sist.web.entity.BusanInfoEntity;
 import com.sist.web.vo.BusanFoodVO;
-
+// 40-60
 @Service
 public class BuasnFoodServiceImpl implements BusanFoodService{
     @Autowired
@@ -28,6 +28,16 @@ public class BuasnFoodServiceImpl implements BusanFoodService{
 	public List<BusanInfoEntity> busanInfoMainData() {
 		// TODO Auto-generated method stub
 		return iDao.busanInfoMainData();
+	}
+	@Override
+	public List<BusanFoodVO> busanListData(int start) {
+		// TODO Auto-generated method stub
+		return bDao.busanListData(start);
+	}
+	@Override
+	public int busanFoodTotalPage() {
+		// TODO Auto-generated method stub
+		return bDao.busanFoodTotalPage();
 	}
 
 }
