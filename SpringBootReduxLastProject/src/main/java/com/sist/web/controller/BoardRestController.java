@@ -2,12 +2,18 @@ package com.sist.web.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.sist.web.entity.*;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Id;
+
 import com.sist.web.dao.*;
 
 import java.text.SimpleDateFormat;
@@ -86,6 +92,63 @@ public class BoardRestController {
 	   vo=bDao.findByNo(no);
 	   return vo;
    }
-   
+   // 삭제
+   @DeleteMapping("/board/delete_react/{no}/{pwd}")
+   public Map board_delete(@PathVariable("no") int no,@PathVariable("pwd") String pwd)
+   {
+	   Map map=new HashMap();
+	   BoardEntity vo=bDao.findByNo(no);
+	   if(pwd.equals(vo.getPwd()))
+	   {
+		   bDao.delete(vo);
+		   map.put("msg", "yes");
+	   }
+	   else
+	   {
+		   map.put("msg", "no");
+	   }
+	   return map;
+   }
+   @GetMapping("/board/update_react/{no}")
+   public BoardEntity board_update(@PathVariable("no") int no)
+   {
+	   
+	   BoardEntity vo=bDao.findByNo(no);
+	   
+	   return vo;
+   }
+   /*
+    *      @Id
+		   private int no; ========> insert,update = true
+		   private String name;====> insert,update = true
+		   private String subject;===> insert,update = true
+		   private String content;===>  insert,update = true
+		   
+		   @Column(insertable = true , updatable = false)
+		   private String pwd; ===>
+		   
+		   @Column(insertable = true , updatable = false)
+		   
+		   private String regdate;
+		   private int hit; ===>  insert,update = true
+    */
+   @PutMapping("/board/update_react_ok")
+   public Map board_update_ok(@RequestBody BoardEntity vo)
+   {
+	   Map map=new HashMap();
+	   BoardEntity db=bDao.findByNo(vo.getNo());
+	   if(vo.getPwd().equals(db.getPwd()))
+	   {
+		   vo.setNo(vo.getNo());
+		   vo.setHit(db.getHit());
+		   bDao.save(vo); 
+		   map.put("msg","yes");
+	   }
+	   else
+	   {
+		   map.put("msg", "no");
+	   }
+	   return map;
+   }
    
 }

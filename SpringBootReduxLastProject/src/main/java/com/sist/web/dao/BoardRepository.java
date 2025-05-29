@@ -13,4 +13,5 @@ public interface BoardRepository extends JpaRepository<BoardEntity, Integer>{
   // @Query => 입력되는 데이터가 있는 경우 => @Param
   // @Param 두개이상 => Integer 
   public BoardEntity findByNo(int no);
+  
 }

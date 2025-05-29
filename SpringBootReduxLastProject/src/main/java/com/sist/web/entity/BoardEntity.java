@@ -3,6 +3,8 @@ package com.sist.web.entity;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import org.hibernate.annotations.DynamicUpdate;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -20,6 +22,7 @@ import lombok.Data;
  */
 @Entity(name="board")
 @Data
+@DynamicUpdate
 public class BoardEntity {
    @Id
    private int no;
