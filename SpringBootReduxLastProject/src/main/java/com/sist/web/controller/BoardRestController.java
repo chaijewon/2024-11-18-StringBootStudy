@@ -62,6 +62,30 @@ public class BoardRestController {
 	   }
 	   return map;
    }
+   /*
+    *    JPA => DataSet => VO를 가지고 데이터베이스 제어 
+    *             |
+    *           SQL없이 사용이 가능 
+    *    => 복잡한 쿼리 , WHERE (조건문) => 규칙 
+    *       find    By     No(int no)  WHERE no=?
+    *       SELECT  WHERE  Column
+    *       SELECT DISTINCT ~
+    *       findDistinctBy
+    *    => 나머지는 제공하는 메소드 사용 
+    *       = count() SELECT COUNT(*) ~
+    *       = save() => insert/update 
+    *       = delete() 
+    */
+   @GetMapping("/board/detail_react/{no}")
+   public BoardEntity board_detail(@PathVariable("no") int no)
+   {
+	   BoardEntity vo=bDao.findByNo(no);
+	   ///// 조회수 증가 
+	   vo.setHit(vo.getHit()+1);
+	   bDao.save(vo);
+	   vo=bDao.findByNo(no);
+	   return vo;
+   }
    
    
 }
