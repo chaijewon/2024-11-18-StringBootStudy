@@ -10,7 +10,7 @@ import com.sist.web.vo.BusanFoodVO;
 
 import java.util.*;
 /*
- *   public int getNo();
+ * public int getNo();
    public String getPoster();
    public String getName();
    public int getHit();
