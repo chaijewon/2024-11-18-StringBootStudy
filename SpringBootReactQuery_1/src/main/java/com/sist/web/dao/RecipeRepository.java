@@ -22,6 +22,20 @@ public interface RecipeRepository extends JpaRepository<RecipeEntity, Integer>{
 		 +"WHERE no IN(SELECT no FROM recipe INTERSECT SELECT no FROM recipeDetail)",nativeQuery = true)
    public int recipeTotalPage();
    // Find 
+   
+   @Query(value="SELECT no,poster,chef,hit,likecount,num,title "
+			 +"FROM (SELECT no,poster,chef,hit,likecount,rownum as num,title "
+			 +"FROM (SELECT /* INDEX_ASC(recipe recipe_no_pk)*/no,poster,chef,hit,likecount,title "
+			 +"FROM recipe WHERE no IN(SELECT no FROM recipe INTERSECT SELECT no FROM recipeDetail) "
+			 +"AND title LIKE '%'||:title||'%')) "
+			 +"WHERE num BETWEEN :start AND :end",nativeQuery = true)
+   public List<RecipeVO> recipeFindData(@Param("start") Integer start,
+		       @Param("end") Integer end,@Param("title") String title);
+   
+   @Query(value="SELECT CEIL(COUNT(*)/12.0) FROM recipe "
+			 +"WHERE no IN(SELECT no FROM recipe INTERSECT SELECT no FROM recipeDetail) "
+		     +"AND title LIKE '%'||:title||'%'",nativeQuery = true)
+   public int recipeFindTotalPage(@Param("title") String title);
    // Chef 
    // Chef의 recipe목록 
    // CRUD 
