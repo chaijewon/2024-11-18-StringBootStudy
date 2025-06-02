@@ -20,6 +20,7 @@ public class RecipeRestController {
   // 일반 => 권장 : JavaScript / TypeScript (가독성) 
   // Redux => TanStack-Query => ThymeLeaf (Git Actions , Docker) => CI/CD 
   // 본인 PR 
+  
   @GetMapping("/recipe/list/{page}")
   public ResponseEntity<Map> food_list(@PathVariable("page") int page)
   {
@@ -59,6 +60,20 @@ public class RecipeRestController {
 		  return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
 	  }
 	  return new ResponseEntity<>(map,HttpStatus.OK); // 정상 수행 => 200
+  }
+  @GetMapping("/recipe/detail/{no}")
+  public ResponseEntity<Map> recipe_detail(@PathVariable("no") int no)
+  {
+	  Map map=new HashMap();
+	  try
+	  {
+		  map=rService.recipeDetailData(no);
+		  
+	  }catch(Exception ex)
+	  {
+		  return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
+	  }
+	  return new ResponseEntity<>(map,HttpStatus.OK);
   }
   
 }
