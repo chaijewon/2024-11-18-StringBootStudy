@@ -3,6 +3,7 @@ package com.sist.web.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,6 +11,7 @@ import java.util.*;
 import com.sist.web.entity.*;
 import com.sist.web.service.*;
 @RestController
+@CrossOrigin(origins = "*")
 public class RecipeRestController {
   @Autowired
   private RecipeService rService;
@@ -18,7 +20,7 @@ public class RecipeRestController {
   // 일반 => 권장 : JavaScript / TypeScript (가독성) 
   // Redux => TanStack-Query => ThymeLeaf (Git Actions , Docker) => CI/CD 
   // 본인 PR 
-  @GetMapping("/food/list/{page}")
+  @GetMapping("/recipe/list/{page}")
   public ResponseEntity<Map> food_list(@PathVariable("page") int page)
   {
 	  Map map=new HashMap();

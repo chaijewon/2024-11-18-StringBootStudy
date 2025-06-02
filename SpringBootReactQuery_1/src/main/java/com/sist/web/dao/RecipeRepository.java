@@ -8,9 +8,9 @@ import java.util.*;
 import com.sist.web.entity.*;
 @Repository
 public interface RecipeRepository extends JpaRepository<RecipeEntity, Integer>{
-   @Query(value="SELECT no,poster,chef,hit,likecount,num "
-		 +"FROM (SELECT no,poster,chef,hit,likecount,rownum as num "
-		 +"FROM (SELECT /* INDEX_ASC(recipe recipe_no_pk)*/no,poster,chef,hit,likecount "
+   @Query(value="SELECT no,poster,chef,hit,likecount,num,title "
+		 +"FROM (SELECT no,poster,chef,hit,likecount,rownum as num,title "
+		 +"FROM (SELECT /* INDEX_ASC(recipe recipe_no_pk)*/no,poster,chef,hit,likecount,title "
 		 +"FROM recipe WHERE no IN(SELECT no FROM recipe INTERSECT SELECT no FROM recipeDetail))) "
 		 +"WHERE num BETWEEN :start AND :end",nativeQuery = true)
    public List<RecipeVO> recipeListData(@Param("start") Integer start,
