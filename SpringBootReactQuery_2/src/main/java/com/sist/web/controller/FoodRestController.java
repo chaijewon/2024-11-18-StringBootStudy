@@ -15,11 +15,19 @@ import com.sist.web.entity.*;
 public class FoodRestController {
     @Autowired
 	private BusanFoodService bService;
+   
     
     @GetMapping("/food/list/{page}")
     public Map food_list(@PathVariable("page") int page)
     {
     	Map map=bService.busanFoodListData(page);
+    	return map;
+    }
+    
+    @GetMapping("/info/list/{page}")
+    public Map info_list(@PathVariable("page") int page)
+    {
+    	Map map=bService.busanInfoListData(page);
     	return map;
     }
    
