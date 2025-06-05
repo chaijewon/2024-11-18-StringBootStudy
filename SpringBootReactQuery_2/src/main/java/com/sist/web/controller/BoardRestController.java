@@ -1,6 +1,8 @@
 package com.sist.web.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,25 +30,32 @@ public class BoardRestController {
    // http://localhost/board/list_react/${page}
    // ResponseEntity<Map> 
    @GetMapping("/board/list/{page}")
-   public Map board_list(@PathVariable("page") int page)
+   public ResponseEntity<Map> board_list(@PathVariable("page") int page)
    {
 	   // 2025-05-21 00:00:00
 	   Map map=new HashMap();
-	   int rowSize=10;
-	   int start=(page*rowSize)-(rowSize-1);
-	   int end=page*rowSize;
-	   List<BoardVO> list=bDao.boardListData(start,end);
-	  
-	   int count=(int)bDao.count();
-	   int totalpage=(int)(Math.ceil(count/(double)rowSize));
-	   String today=new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+	   try
+	   {
+		   int rowSize=10;
+		   int start=(page*rowSize)-(rowSize-1);
+		   int end=page*rowSize;
+		   List<BoardVO> list=bDao.boardListData(start,end);
+		  
+		   int count=(int)bDao.count();
+		   int totalpage=(int)(Math.ceil(count/(double)rowSize));
+		   String today=new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+		   
+		   map.put("today", today);
+		   map.put("curpage",page);
+		   map.put("totalpage", totalpage);
+		   map.put("list", list);
+	   }catch(Exception ex)
+	   {
+		   return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
+		   // 서버측 에러 전송 
+	   }
 	   
-	   map.put("today", today);
-	   map.put("curpage",page);
-	   map.put("totalpage", totalpage);
-	   map.put("list", list);
-	   
-	   return map;
+	   return new ResponseEntity<>(map,HttpStatus.OK);// 정상 수행 
    }
    @PostMapping("/board/insert")
    public Map board_insert(@RequestBody BoardEntity vo)
@@ -82,14 +91,22 @@ public class BoardRestController {
     *       = delete() 
     */
    @GetMapping("/board/detail/{no}")
-   public BoardEntity board_detail(@PathVariable("no") int no)
+   public ResponseEntity<BoardEntity> board_detail(@PathVariable("no") int no)
    {
-	   BoardEntity vo=bDao.findByNo(no);
-	   ///// 조회수 증가 
-	   vo.setHit(vo.getHit()+1);
-	   bDao.save(vo);
-	   vo=bDao.findByNo(no);
-	   return vo;
+	   BoardEntity vo=null;
+	   try
+	   {
+		 vo=bDao.findByNo(no);
+	     ///// 조회수 증가 
+	     vo.setHit(vo.getHit()+1);
+	     bDao.save(vo);
+	     vo=bDao.findByNo(no);
+	   }catch(Exception ex)
+	   {
+		   return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
+		   // console => 서버 / React => 500 , 404 ....
+	   }
+	   return new ResponseEntity<>(vo,HttpStatus.OK);
    }
    // 삭제
    @DeleteMapping("/board/delete/{no}/{pwd}")
