@@ -8,7 +8,7 @@ public interface BoardVO {
    public String getName();
    public String getContent();
    public String getDbday();
-   public Date getHiredate();
+   public Date getRegdate();
    public int getHit();
    public int getNum();
 }

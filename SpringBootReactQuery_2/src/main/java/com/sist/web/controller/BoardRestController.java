@@ -91,16 +91,16 @@ public class BoardRestController {
     *       = delete() 
     */
    @GetMapping("/board/detail/{no}")
-   public ResponseEntity<BoardEntity> board_detail(@PathVariable("no") int no)
+   public ResponseEntity<BoardVO> board_detail(@PathVariable("no") int no)
    {
-	   BoardEntity vo=null;
+	   BoardVO vo=null;
 	   try
 	   {
-		 vo=bDao.findByNo(no);
+		 BoardEntity b=bDao.findByNo(no);
 	     ///// 조회수 증가 
-	     vo.setHit(vo.getHit()+1);
-	     bDao.save(vo);
-	     vo=bDao.findByNo(no);
+	     b.setHit(b.getHit()+1);
+	     bDao.save(b);
+	     vo=bDao.boardDetailData(no);
 	   }catch(Exception ex)
 	   {
 		   return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
@@ -110,20 +110,26 @@ public class BoardRestController {
    }
    // 삭제
    @DeleteMapping("/board/delete/{no}/{pwd}")
-   public Map board_delete(@PathVariable("no") int no,@PathVariable("pwd") String pwd)
+   public ResponseEntity<Map> board_delete(@PathVariable("no") int no,@PathVariable("pwd") String pwd)
    {
-	   Map map=new HashMap();
-	   BoardEntity vo=bDao.findByNo(no);
-	   if(pwd.equals(vo.getPwd()))
-	   {
-		   bDao.delete(vo);
-		   map.put("msg", "yes");
-	   }
-	   else
-	   {
-		   map.put("msg", "no");
-	   }
-	   return map;
+	  Map map=new HashMap();
+	  try
+	  {
+		   BoardEntity vo=bDao.findByNo(no);
+		   if(pwd.equals(vo.getPwd()))
+		   {
+			   bDao.delete(vo);
+			   map.put("msg", "yes");
+		   }
+		   else
+		   {
+			   map.put("msg", "no");
+		   }
+	  }catch(Exception ex)
+	  {
+		  return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
+	  }
+	   return new ResponseEntity<>(map,HttpStatus.OK);
    }
    @GetMapping("/board/update/{no}")
    public BoardEntity board_update(@PathVariable("no") int no)
