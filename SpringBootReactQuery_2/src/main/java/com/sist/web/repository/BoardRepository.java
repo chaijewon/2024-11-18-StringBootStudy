@@ -24,4 +24,8 @@ public interface BoardRepository extends JpaRepository<BoardEntity, Integer>{
   public int maxNo();
   
   public BoardEntity findByNo(int no);
+  
+  @Query(value="SELECT no,subject,name,TO_CHAR(content) as content "
+	      +"FROM board WHERE no=:no",nativeQuery = true)
+  public BoardUpdateVO boardUpdateData(@Param("no") int no);
 }

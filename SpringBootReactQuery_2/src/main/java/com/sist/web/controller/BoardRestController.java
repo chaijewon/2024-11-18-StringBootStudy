@@ -132,12 +132,19 @@ public class BoardRestController {
 	   return new ResponseEntity<>(map,HttpStatus.OK);
    }
    @GetMapping("/board/update/{no}")
-   public BoardEntity board_update(@PathVariable("no") int no)
+   public ResponseEntity<BoardUpdateVO> board_update(@PathVariable("no") int no)
    {
 	   
-	   BoardEntity vo=bDao.findByNo(no);
+	   BoardUpdateVO vo=null;
+	   try
+	   {
+		   vo=bDao.boardUpdateData(no);
+	   }catch(Exception ex)
+	   {
+		   return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
+	   }
 	   
-	   return vo;
+	   return new ResponseEntity<>(vo,HttpStatus.OK);
    }
    /*
     *      @Id
@@ -155,9 +162,11 @@ public class BoardRestController {
 		   private int hit; ===>  insert,update = true
     */
    @PutMapping("/board/update_ok")
-   public Map board_update_ok(@RequestBody BoardEntity vo)
+   public ResponseEntity<Map> board_update_ok(@RequestBody BoardEntity vo)
    {
 	   Map map=new HashMap();
+	  try
+	  {
 	   BoardEntity db=bDao.findByNo(vo.getNo());
 	   if(vo.getPwd().equals(db.getPwd()))
 	   {
@@ -170,7 +179,11 @@ public class BoardRestController {
 	   {
 		   map.put("msg", "no");
 	   }
-	   return map;
+	  }catch(Exception ex)
+	  {
+		  return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
+	  }
+	   return new ResponseEntity<>(map,HttpStatus.OK);
    }
    
 }
