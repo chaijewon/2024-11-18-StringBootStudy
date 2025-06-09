@@ -15,7 +15,7 @@ public interface RecipeRepository extends JpaRepository<RecipeEntity, Integer>{
 		+"FROM (SELECT /*+ INDEX_ASC(recipe recipe_no_pk)*/no,title,poster,chef,hit,likecount "
 		+"FROM recipe WHERE no IN(SELECT no FROM recipe INTERSECT SELECT no FROM recipedetail))) "
 		+"WHERE num BETWEEN :start AND :end",nativeQuery = true)
-  public List<RecipeVO> recipeListData(@Param("start") Integer start,@Param("end") Integer end);
+  public List<RecipeListVO> recipeListData(@Param("start") Integer start,@Param("end") Integer end);
   
   @Query(value="SELECT COUNT(*) FROM recipe "
 		+"WHERE no IN(SELECT no FROM recipe INTERSECT SELECT no FROM recipedetail)",nativeQuery = true)

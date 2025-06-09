@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 // boot => 설정 파일 단순하다 (.yml,.properties) => 라이브러리 설정이 가능 
 // 웹 관련 호환성이 좋다 => boot > Framework 
 // MSA => boot : 서버용 , Front => 별도로 작업  boot = react , boot = angular , boot = vue 
-@RestControllerAdvice
+// @RestControllerAdvice
 // 메모리 할당 
 // @Component / Repository / Service / Controller / RestController  
 public class ExceptionCommons {
