@@ -26,4 +26,6 @@ public interface RecipeRepository extends JpaRepository<RecipeEntity, Integer>{
 		+"FROM recipe ORDER BY no ASC) "
 		+"WHERE rownum<=9",nativeQuery = true)
   public List<RecipeVO> recipeMainData();
+  
+  
 }

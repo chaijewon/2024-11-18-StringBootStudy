@@ -9,6 +9,7 @@ import com.sist.web.vo.FoodListVO;
 import com.sist.web.vo.FoodVO;
 import com.sist.web.vo.RecipeListVO;
 import com.sist.web.dao.*;
+import com.sist.web.entity.FoodEntity;
 
 /*
  *                             | 제어 => 페이지 나누기 ... (데이터 변경이 필요)
@@ -50,6 +51,11 @@ public class FoodServiceImpl implements FoodService{
 		map.put("startPage", startPage);
 		map.put("endPage", endPage);
 		return map;
+	}
+	@Override
+	public FoodEntity foodDetailData(int fno) {
+		// TODO Auto-generated method stub
+		return fDao.foodDetailData(fno);
 	}
 
 }
