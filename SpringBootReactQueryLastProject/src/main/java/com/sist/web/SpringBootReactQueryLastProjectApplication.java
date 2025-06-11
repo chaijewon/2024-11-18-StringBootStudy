@@ -9,5 +9,5 @@ public class SpringBootReactQueryLastProjectApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(SpringBootReactQueryLastProjectApplication.class, args);
 	}
-
+    
 }
