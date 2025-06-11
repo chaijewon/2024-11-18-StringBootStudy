@@ -1,5 +1,16 @@
 package com.sist.web.dao;
 
-public interface CommentRepository {
-
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
+import java.util.*;
+import com.sist.web.entity.*;
+import com.sist.web.vo.*;
+@Repository
+public interface CommentRepository extends JpaRepository<CommentEntity, Integer>{
+   @Query(value="SELECT no,fno,id,name,msg,TO_CHAR(regdate,'YYYY-MM-DD HH24:MI:SS') "
+		 +"as dbday FROM reactcomment "
+		 +"WHERE fno=:fno",nativeQuery = true)
+   public List<CommentVO> commentListData(@Param("fno") int fno);
 }

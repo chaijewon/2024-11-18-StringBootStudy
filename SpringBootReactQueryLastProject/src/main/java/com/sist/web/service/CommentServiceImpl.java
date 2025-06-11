@@ -1,18 +1,32 @@
 package com.sist.web.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 import com.sist.web.entity.MemberEntity;
+import com.sist.web.vo.CommentVO;
 import com.sist.web.dao.*;
-// DAO VS Service : 
+// => Ajax를 이용한 동적페이지 : Ajax => Vue / React 
+//                                   | Nuxt | Next         => JavaScript : 가독성(X) 
+//                                                             | TypeScript 
+// DAO VS Service :
+/*
+ *     class A
+ *     {
+ *       int a,b,c,d,e,f; 
+ *     }
+ */
 @Service
 public class CommentServiceImpl implements CommentService{
     
 	@Autowired 
 	private MemberRepository mDao;
 	
+	@Autowired
+	private CommentRepository cDao;
 	// => id 존재여부 확인 
 	@Override
 	public int idCount(String id) {
@@ -25,6 +39,16 @@ public class CommentServiceImpl implements CommentService{
 		// TODO Auto-generated method stub
 		return mDao.memberDetailData(id);
 	}
+	@Override
+	public List<CommentVO> commentListData(int fno) {
+		// TODO Auto-generated method stub
+		return commentCommonsData(fno);
+	}
 	
-	
+	public List<CommentVO> commentCommonsData(int fno)
+	{
+		return cDao.commentListData(fno);
+	}
+	// insert / update / delete
+	// data가 변경이 되는 화면 UI에 적용 
 }
