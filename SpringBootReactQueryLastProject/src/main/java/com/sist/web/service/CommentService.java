@@ -15,4 +15,6 @@ public interface CommentService {
 	public List<CommentVO> commentListData(int fno);
 	
 	public List<CommentVO> commentInsert(CommentEntity vo);
+	
+	public List<CommentVO> commentDelete(int no,int fno);
 }
