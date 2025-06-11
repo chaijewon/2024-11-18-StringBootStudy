@@ -13,4 +13,7 @@ public interface CommentRepository extends JpaRepository<CommentEntity, Integer>
 		 +"as dbday FROM reactcomment "
 		 +"WHERE fno=:fno",nativeQuery = true)
    public List<CommentVO> commentListData(@Param("fno") int fno);
+   
+   @Query(value="SELECT NVL(MAX(no)+1,1) FROM reactcomment",nativeQuery = true)
+   public int MaxNo();
 }

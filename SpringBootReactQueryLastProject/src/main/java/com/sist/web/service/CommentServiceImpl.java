@@ -1,11 +1,13 @@
 package com.sist.web.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
+import com.sist.web.entity.CommentEntity;
 import com.sist.web.entity.MemberEntity;
 import com.sist.web.vo.CommentVO;
 import com.sist.web.dao.*;
@@ -51,4 +53,23 @@ public class CommentServiceImpl implements CommentService{
 	}
 	// insert / update / delete
 	// data가 변경이 되는 화면 UI에 적용 
+	@Override
+	public List<CommentVO> commentInsert(CommentEntity vo) {
+		// TODO Auto-generated method stub
+		int no=cDao.MaxNo();
+		vo.setNo(no);
+		vo.setRegdate(new Date()); // id,name,fno,msg 
+		cDao.save(vo);
+		return commentCommonsData(vo.getFno());
+	}
 }
+
+
+
+
+
+
+
+
+
+

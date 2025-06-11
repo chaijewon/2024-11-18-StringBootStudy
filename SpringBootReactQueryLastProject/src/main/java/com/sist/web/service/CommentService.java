@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.repository.query.Param;
 
+import com.sist.web.entity.CommentEntity;
 import com.sist.web.entity.MemberEntity;
 import com.sist.web.vo.CommentVO;
 
@@ -12,4 +13,6 @@ public interface CommentService {
 	public MemberEntity memberDetailData(String id);
 	// comment => CRUD 
 	public List<CommentVO> commentListData(int fno);
+	
+	public List<CommentVO> commentInsert(CommentEntity vo);
 }

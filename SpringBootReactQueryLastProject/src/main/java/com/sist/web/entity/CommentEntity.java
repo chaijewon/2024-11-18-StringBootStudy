@@ -9,6 +9,7 @@ REGDATE          DATE
  */
 import java.util.*;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import lombok.Data;
@@ -17,7 +18,21 @@ import lombok.Data;
 public class CommentEntity {
   @Id
   private int no;
+  @Column(updatable = false,insertable = true)
   private int fno;
-  private String id,name,msg;
+  @Column(updatable = false,insertable = true)
+  private String id;
+  @Column(updatable = false,insertable = true)
+  private String name;
+  private String msg;
+  @Column(updatable = false,insertable = true)
   private Date regdate;
 }
+
+
+
+
+
+
+
+

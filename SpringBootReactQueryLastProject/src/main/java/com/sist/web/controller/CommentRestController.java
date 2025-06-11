@@ -7,10 +7,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sist.web.entity.*;
 import com.sist.web.service.*;
+import com.sist.web.vo.CommentVO;
 @RestController
 @CrossOrigin(origins = "*")
 public class CommentRestController {
@@ -55,4 +58,20 @@ public class CommentRestController {
    // 댓글 작업 
    // => 글쓰기 / 수정하기 / 삭제하기 / 목록 
    //    -----  -------> JQuery 
+   @PostMapping("/comment/insert")
+   public ResponseEntity<Map> comment_insert(@RequestBody CommentEntity vo)
+   {
+	     System.out.println("호출...");
+	     System.out.println(vo);
+	     Map map=new HashMap();
+	     try
+	     {
+	    	 List<CommentVO> list=cService.commentInsert(vo);
+	    	 map.put("comments", list);
+	     }catch(Exception ex)
+	     {
+	    	 return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
+	     }
+	     return new ResponseEntity<>(map,HttpStatus.OK);
+   }
 }
