@@ -17,4 +17,6 @@ public interface CommentService {
 	public List<CommentVO> commentInsert(CommentEntity vo);
 	
 	public List<CommentVO> commentDelete(int no,int fno);
+	
+	public List<CommentVO> commentUpdate(int no,String msg);
 }

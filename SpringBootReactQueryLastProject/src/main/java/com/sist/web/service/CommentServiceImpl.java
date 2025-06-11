@@ -69,6 +69,15 @@ public class CommentServiceImpl implements CommentService{
 		cDao.delete(vo);
 		return commentCommonsData(fno);
 	}
+	@Override
+	public List<CommentVO> commentUpdate(int no, String msg) {
+		// TODO Auto-generated method stub
+		CommentEntity vo=cDao.findByNo(no);
+		vo.setMsg(msg);
+		vo.setNo(no);
+		cDao.save(vo);
+		return commentCommonsData(no);
+	}
 }
 
 
